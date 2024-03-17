@@ -5,7 +5,7 @@ import 'package:shopi/model/cart_model.dart';
 import 'package:shopi/service/sql_lite.dart';
 import 'package:shopi/views/home_page.dart';
 import 'package:shopi/widget/item_card.dart';
-import 'package:loading_animation_widget/loading_animation_widget.dart'; // Import the loading animation widget
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 class PersonalCare extends StatefulWidget {
   const PersonalCare({Key? key}) : super(key: key);
@@ -20,7 +20,7 @@ class _PersonalCareState extends State<PersonalCare> {
   @override
   void initState() {
     super.initState();
-    // Simulate loading for 3 seconds
+   
     Future.delayed(const Duration(seconds: 3), () {
       setState(() {
         _isLoading = false;
@@ -43,7 +43,7 @@ class _PersonalCareState extends State<PersonalCare> {
             ),
           )
         : _buildPersonalCareContent(
-            context); // Build personal care content when loading is complete
+            context);
   }
 
   Widget _buildPersonalCareContent(BuildContext context) {

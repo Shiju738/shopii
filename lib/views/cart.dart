@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shopi/controller/cart_controller.dart';
 import 'package:shopi/model/cart_model.dart';
-import 'package:shopi/views/payment_screen.dart';
+import 'package:shopi/views/home_page.dart';
 import 'package:shopi/widget/card.dart';
 
 class CartPage extends StatelessWidget {
@@ -13,7 +13,17 @@ class CartPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
+      appBar: AppBar(leading: IconButton(
+            onPressed: () {
+              Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) =>const MyHomePage(),
+                  ),
+                  (route) => false);
+            },
+            icon: const Icon(Icons.arrow_back),
+          ),
         title: const Text('Cart'),
       ),
       body: const CartItemList(),
@@ -72,12 +82,12 @@ class _CartItemListState extends State<CartItemList> {
               const SizedBox(height: 16),
               ElevatedButton(
                 onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const Payment(),
-                    ),
-                  );
+                  // Navigator.push(
+                  //   context,
+                  //   MaterialPageRoute(
+                  //     builder: (context) => const Payment(),
+                  //   ),
+                  // );
                 },
                 style: ElevatedButton.styleFrom(
                   foregroundColor: Colors.white,

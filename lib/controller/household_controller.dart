@@ -20,7 +20,7 @@ class HouseholdController extends ChangeNotifier {
       'price': '\$100',
       'isFavorite': false,
     },
-    // Add more household items here
+   
   ];
 
   List<Map<String, dynamic>> _favoriteItems = [];
@@ -38,7 +38,7 @@ class HouseholdController extends ChangeNotifier {
         quantity: 1,
       ),
     );
-    // Notify listeners here if needed
+   
   }
 
   void toggleFavorite(int index) {
@@ -55,4 +55,6 @@ class HouseholdController extends ChangeNotifier {
     _householdItems.sort((a, b) => a['name'].compareTo(b['name']));
     notifyListeners();
   }
+
+  getData() {}
 }

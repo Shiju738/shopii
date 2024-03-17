@@ -1,29 +1,22 @@
-// ignore_for_file: library_private_types_in_public_api
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:shopi/controller/cart_controller.dart';
+import 'package:shopi/controller/home_controller.dart';
 import 'package:shopi/model/cart_model.dart';
 import 'package:shopi/views/cart.dart';
 import 'package:shopi/views/groceries.dart';
 import 'package:shopi/views/household.dart';
 import 'package:shopi/views/personal_care.dart';
+import 'package:shopi/views/search.dart';
 import 'package:shopi/widget/home_card.dart';
 
-class MyHomePage extends StatefulWidget {
+class MyHomePage extends StatelessWidget {
   const MyHomePage({Key? key}) : super(key: key);
 
   @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _bottomNavIndex = 0;
-
-  @override
   Widget build(BuildContext context) {
+    HomeController homeController = Provider.of<HomeController>(context);
+
     return Scaffold(
-      // appBar: AppBar(),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(10),
@@ -81,17 +74,21 @@ class _MyHomePageState extends State<MyHomePage> {
         backgroundColor: Colors.yellow,
         selectedItemColor: Colors.black,
         unselectedItemColor: Colors.grey,
-        currentIndex: _bottomNavIndex,
+        currentIndex: homeController.bottomNavIndex,
         onTap: (index) {
-          setState(() {
-            _bottomNavIndex = index;
-          });
-          // Navigate to the cart page when the "Cart" icon is tapped
+          homeController.bottomNavIndex = index;
           if (index == 1) {
             Navigator.push(
               context,
               MaterialPageRoute(
                 builder: (context) => const CartPage(),
+              ),
+            );
+          } else if (index == 2) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const SearchScreen(),
               ),
             );
           }
@@ -105,8 +102,8 @@ class _MyHomePageState extends State<MyHomePage> {
             label: 'Home',
           ),
           BottomNavigationBarItem(
-            icon: Consumer<CartController>(
-              builder: (context, cartController, _) {
+            icon: Consumer<HomeController>(
+              builder: (context, controller, _) {
                 return Stack(
                   children: [
                     const Icon(
@@ -114,17 +111,14 @@ class _MyHomePageState extends State<MyHomePage> {
                       size: 30,
                     ),
                     FutureBuilder<List<CartItem>>(
-                      future: cartController.getCartItems(),
+                      future: controller.getCartItems(context),
                       builder: (context, snapshot) {
                         if (snapshot.connectionState ==
                             ConnectionState.waiting) {
-                          // Loading state
                           return const SizedBox();
                         } else if (snapshot.hasError) {
-                          // Error state
                           return const SizedBox();
                         } else {
-                          // Success state
                           final cartItems = snapshot.data ?? [];
                           final itemCount = cartItems.fold<int>(
                               0,
@@ -134,9 +128,8 @@ class _MyHomePageState extends State<MyHomePage> {
                               ? Positioned(
                                   bottom: 10,
                                   width: 19,
-                                  // Adjust the position as needed
                                   left: 9,
-                                  top: 1, // Adjust the position as needed
+                                  top: 1,
                                   child: CircleAvatar(
                                     backgroundColor: Colors.red,
                                     radius: 8,
@@ -160,6 +153,7 @@ class _MyHomePageState extends State<MyHomePage> {
             label: 'Cart',
           ),
           const BottomNavigationBarItem(
+            activeIcon: Icon(Icons.search_off),
             icon: Icon(
               Icons.search,
               size: 30,

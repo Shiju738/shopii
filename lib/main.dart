@@ -20,10 +20,10 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
-          create: (context) => HomeController(),
+          create: (context) => CartController(),
         ),
         ChangeNotifierProvider(
-          create: (context) => CartController(),
+          create: (context) => HomeController(),
         ),
         ChangeNotifierProvider(
           create: (context) => GroceriesController(),

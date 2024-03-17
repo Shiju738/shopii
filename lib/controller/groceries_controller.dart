@@ -30,7 +30,7 @@ class GroceriesController extends ChangeNotifier {
     notifyListeners();
   }
 
-  Map<int, bool> addedGroceries = {}; // Track added groceries
+  Map<int, bool> addedGroceries = {};
 
   DatabaseHelper _databaseHelper = DatabaseHelper();
 
@@ -60,6 +60,4 @@ class GroceriesController extends ChangeNotifier {
   bool isFavorite(int index) {
     return groceries[index]['isFavorite'];
   }
-
-  
 }
