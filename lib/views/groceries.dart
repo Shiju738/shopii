@@ -1,12 +1,11 @@
 // groceries.dart
-
-// ignore_for_file: library_private_types_in_public_api
-
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:provider/provider.dart'; // Import your GroceriesController class
 import 'package:shopi/controller/groceries_controller.dart';
-import 'package:shopi/views/home_page.dart';
+import 'package:shopi/controller/loading_controller.dart';
 import 'package:shopi/widget/item_card.dart';
+import 'home_page.dart'; // Import your HomePage class
+// Import your ItemCard class
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 class Groceries extends StatefulWidget {
@@ -17,21 +16,26 @@ class Groceries extends StatefulWidget {
 }
 
 class _GroceriesState extends State<Groceries> {
-  bool _isLoading = true;
 
   @override
   void initState() {
     super.initState();
+    // Access the LoadingProvider instance
+    final loadingProvider = Provider.of<LoadingProvider>(context, listen: false);
     // Simulate loading for one second
     Future.delayed(const Duration(seconds: 3), () {
       setState(() {
-        _isLoading = false;
+        // Set loading to false when loading is complete
+        loadingProvider.setLoading(false);
       });
     });
   }
 
   @override
   Widget build(BuildContext context) {
+    // Access the LoadingProvider instance
+    final loadingProvider = Provider.of<LoadingProvider>(context);
+
     final groceriesController = Provider.of<GroceriesController>(context);
 
     return Scaffold(
@@ -41,7 +45,7 @@ class _GroceriesState extends State<Groceries> {
             Navigator.pushAndRemoveUntil(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => MyHomePage(),
+                  builder: (context) => const MyHomePage(),
                 ),
                 (route) => false);
           },
@@ -55,7 +59,7 @@ class _GroceriesState extends State<Groceries> {
           ),
         ],
       ),
-      body: _isLoading
+      body: loadingProvider.isLoading
           ? Center(
               child: LoadingAnimationWidget.staggeredDotsWave(
                 color: Colors.black,

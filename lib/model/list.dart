@@ -1,4 +1,3 @@
-
 class ItemController {
   final List<Map<String, dynamic>> _groceries = [
     {
@@ -28,7 +27,6 @@ class ItemController {
       'price': '\$100',
       'isFavorite': false,
     },
-    // Add more household items here
   ];
 
   final List<Map<String, dynamic>> _personalCareItems = [

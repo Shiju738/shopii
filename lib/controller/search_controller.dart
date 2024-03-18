@@ -1,14 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:shopi/model/list.dart'; // Assuming you have a model named 'ItemController'
+import 'package:shopi/model/list.dart';
 
 class SearchControllers extends ChangeNotifier {
-  final ItemController _itemController = ItemController();
-  List<Map<String, dynamic>> _filteredProducts = [];
+  final ItemController itemController = ItemController();
 
-  List<Map<String, dynamic>> get filteredProducts => _filteredProducts;
+  List<Map<String, dynamic>> filteredProducts = [];
+  bool _showList = false;
+
+  bool get showList => _showList;
 
   void searchItems(String query) {
-    _filteredProducts = _itemController.searchItems(query);
+    filteredProducts = itemController.searchItems(query);
+    _showList = query.isNotEmpty;
+    notifyListeners();
+  }
+
+  void toggleFavorite(int index) {
+    filteredProducts[index]['isFavorite'] =
+        !filteredProducts[index]['isFavorite'];
     notifyListeners();
   }
 }

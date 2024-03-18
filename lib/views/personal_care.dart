@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api, use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shopi/controller/persional_care_controller.dart';
@@ -20,7 +22,7 @@ class _PersonalCareState extends State<PersonalCare> {
   @override
   void initState() {
     super.initState();
-   
+
     Future.delayed(const Duration(seconds: 3), () {
       setState(() {
         _isLoading = false;
@@ -42,8 +44,7 @@ class _PersonalCareState extends State<PersonalCare> {
               ),
             ),
           )
-        : _buildPersonalCareContent(
-            context);
+        : _buildPersonalCareContent(context);
   }
 
   Widget _buildPersonalCareContent(BuildContext context) {
@@ -57,7 +58,7 @@ class _PersonalCareState extends State<PersonalCare> {
             Navigator.pushAndRemoveUntil(
               context,
               MaterialPageRoute(
-                builder: (context) => MyHomePage(),
+                builder: (context) => const MyHomePage(),
               ),
               (route) => false,
             );

@@ -1,4 +1,4 @@
-// ignore_for_file: library_private_types_in_public_api
+// household.dart
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -39,7 +39,7 @@ class _HouseholdState extends State<Household> {
               Navigator.pushAndRemoveUntil(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => MyHomePage(),
+                    builder: (context) => const MyHomePage(),
                   ),
                   (route) => false);
             },
