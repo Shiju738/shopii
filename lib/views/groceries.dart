@@ -1,4 +1,8 @@
 // groceries.dart
+// ignore_for_file: library_private_types_in_public_api
+
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart'; // Import your GroceriesController class
 import 'package:shopi/controller/groceries_controller.dart';
@@ -18,14 +22,16 @@ class Groceries extends StatefulWidget {
 class _GroceriesState extends State<Groceries> {
 
   @override
-  void initState() {
+ void initState() {
     super.initState();
-    // Access the LoadingProvider instance
-    final loadingProvider = Provider.of<LoadingProvider>(context, listen: false);
-    // Simulate loading for one second
-    Future.delayed(const Duration(seconds: 3), () {
+
+    final loadingProvider =
+        Provider.of<LoadingProvider>(context, listen: false);
+
+    loadingProvider.setLoading(true);
+
+    Timer(const Duration(seconds: 2), () {
       setState(() {
-        // Set loading to false when loading is complete
         loadingProvider.setLoading(false);
       });
     });

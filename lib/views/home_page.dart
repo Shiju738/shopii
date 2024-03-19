@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shopi/controller/home_controller.dart';
-import 'package:shopi/model/cart_model.dart';
 import 'package:shopi/views/cart.dart';
 import 'package:shopi/views/groceries.dart';
 import 'package:shopi/views/household.dart';
 import 'package:shopi/views/personal_care.dart';
 import 'package:shopi/views/search.dart';
 import 'package:shopi/widget/home_card.dart';
+import 'package:shopi/widget/nav_bar_count.dart'; // Import the custom widget
 
 class MyHomePage extends StatelessWidget {
   const MyHomePage({Key? key}) : super(key: key);
@@ -106,46 +106,8 @@ class MyHomePage extends StatelessWidget {
               builder: (context, controller, _) {
                 return Stack(
                   children: [
-                    const Icon(
-                      Icons.shopping_cart,
-                      size: 30,
-                    ),
-                    FutureBuilder<List<CartItem>>(
-                      future: controller.getCartItems(context),
-                      builder: (context, snapshot) {
-                        if (snapshot.connectionState ==
-                            ConnectionState.waiting) {
-                          return const SizedBox();
-                        } else if (snapshot.hasError) {
-                          return const SizedBox();
-                        } else {
-                          final cartItems = snapshot.data ?? [];
-                          final itemCount = cartItems.fold<int>(
-                              0,
-                              (previousValue, element) =>
-                                  previousValue + element.quantity);
-                          return itemCount > 0
-                              ? Positioned(
-                                  bottom: 10,
-                                  width: 19,
-                                  left: 9,
-                                  top: 1,
-                                  child: CircleAvatar(
-                                    backgroundColor: Colors.red,
-                                    radius: 8,
-                                    child: Text(
-                                      '$itemCount',
-                                      style: const TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 12,
-                                      ),
-                                    ),
-                                  ),
-                                )
-                              : const SizedBox();
-                        }
-                      },
-                    ),
+                    const Icon(Icons.shopping_cart, size: 30),
+                    CartItemCountWidget(controller: controller), 
                   ],
                 );
               },
@@ -154,10 +116,7 @@ class MyHomePage extends StatelessWidget {
           ),
           const BottomNavigationBarItem(
             activeIcon: Icon(Icons.search_off),
-            icon: Icon(
-              Icons.search,
-              size: 30,
-            ),
+            icon: Icon(Icons.search, size: 30),
             label: 'Search',
           ),
         ],

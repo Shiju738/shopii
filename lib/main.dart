@@ -6,7 +6,6 @@ import 'package:shopi/controller/home_controller.dart';
 import 'package:shopi/controller/loading_controller.dart';
 import 'package:shopi/controller/persional_care_controller.dart';
 import 'package:shopi/controller/search_controller.dart';
-import 'package:shopi/views/home.dart';
 import 'package:shopi/views/home_page.dart';
 
 void main() {

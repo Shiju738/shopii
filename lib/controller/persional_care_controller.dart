@@ -1,5 +1,3 @@
-// personal_care_controller.dart
-
 import 'package:flutter/material.dart';
 
 class PersonalCareController with ChangeNotifier {
@@ -18,6 +16,9 @@ class PersonalCareController with ChangeNotifier {
     },
   ];
 
+  final bool _isLoading = true; // Add isLoading property
+  bool get isLoading => _isLoading; // Getter for isLoading
+
   List<Map<String, dynamic>> get personalCareItems => _personalCareItems;
 
   // Toggle the favorite status of an item
@@ -32,4 +33,5 @@ class PersonalCareController with ChangeNotifier {
     _personalCareItems.sort((a, b) => a['name'].compareTo(b['name']));
     notifyListeners();
   }
+
 }
