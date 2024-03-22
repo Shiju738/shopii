@@ -1,12 +1,12 @@
-// groceries_controller.dart
-
-// ignore_for_file: prefer_final_fields
-
 import 'package:flutter/material.dart';
 import 'package:shopi/model/cart_model.dart';
 import 'package:shopi/service/sql_lite.dart';
 
 class GroceriesController extends ChangeNotifier {
+  GroceriesController([DatabaseHelper? databaseHelper]) {
+    _databaseHelper = databaseHelper ?? DatabaseHelper();
+  }
+
   List<Map<String, dynamic>> groceries = [
     {
       'image': 'images/apple.png',
@@ -21,8 +21,8 @@ class GroceriesController extends ChangeNotifier {
       'isFavorite': false
     },
   ];
-  bool _isLoading = true;
 
+  bool _isLoading = true;
   bool get isLoading => _isLoading;
 
   void setLoading(bool loading) {
@@ -32,7 +32,7 @@ class GroceriesController extends ChangeNotifier {
 
   Map<int, bool> addedGroceries = {};
 
-  DatabaseHelper _databaseHelper = DatabaseHelper();
+  late DatabaseHelper _databaseHelper;
 
   void addToCart(BuildContext context, int index) async {
     final item = groceries[index];

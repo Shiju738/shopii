@@ -1,5 +1,6 @@
 // cart_controller.dart
 import 'package:flutter/material.dart';
+import 'package:mockito/mockito.dart';
 import 'package:shopi/model/cart_model.dart'; // Assuming you have CartItem model
 import 'package:shopi/service/sql_lite.dart'; // Assuming you have DatabaseHelper class
 
@@ -7,11 +8,10 @@ class CartController extends ChangeNotifier {
   late DatabaseHelper _databaseHelper;
   List<CartItem> _cartItems = [];
 
-  CartController() {
-    _databaseHelper = DatabaseHelper();
+  CartController({DatabaseHelper? databaseHelper}) {
+    _databaseHelper = databaseHelper ?? DatabaseHelper();
     _initializeCartItems();
   }
-
   List<CartItem> get cartItems => _cartItems;
   int get totalItems => _cartItems.length;
 
@@ -96,5 +96,16 @@ class CartController extends ChangeNotifier {
     await db.delete(DatabaseHelper.cartTable);
     _cartItems.clear();
     notifyListeners();
+  }
+}
+
+class MockDatabaseHelper extends Mock implements DatabaseHelper {
+  bool addItemToCartCalled = false;
+  late CartItem addedCartItem;
+
+  @override
+  Future<void> addItemToCart(CartItem cartItem) async {
+    addItemToCartCalled = true;
+    addedCartItem = cartItem;
   }
 }

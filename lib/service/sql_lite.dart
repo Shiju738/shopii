@@ -34,7 +34,6 @@ class DatabaseHelper {
     }
   }
 
-
   Future<void> addItemToCart(CartItem item) async {
     final db = await database;
     await db.insert(cartTable, item.toMap(),
@@ -57,4 +56,6 @@ class DatabaseHelper {
     final db = await database;
     await db.insert(cartTable, cartItem.toMap());
   }
+
+  static void reset() {}
 }
