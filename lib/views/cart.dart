@@ -7,9 +7,9 @@ import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:provider/provider.dart';
 import 'package:shopi/controller/cart_controller.dart';
 import 'package:shopi/controller/loading_controller.dart';
-import 'package:shopi/views/home_page.dart'; // Import your CartController class
+import 'package:shopi/views/home_page.dart'; 
 import 'package:shopi/widget/card.dart';
-import 'payment_screen.dart'; // Import your PaymentScreen class
+import 'payment_screen.dart'; 
 
 class CartPage extends StatelessWidget {
   const CartPage({Key? key}) : super(key: key);
